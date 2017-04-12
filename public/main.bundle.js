@@ -155,7 +155,7 @@ var Config = (function () {
     return Config;
 }());
 
-Config.apiUrl = "http://localhost:8000/api/";
+Config.apiUrl = "";
 Config.onesignal_app_api_key = 'ZGVhZDQ0MTUtNDYxYi00N2I2LWI0MDItMDI3N2EzZTYxZDVl';
 Config.onesignal_api_create_message = 'https://onesignal.com/api/v1/notifications';
 //# sourceMappingURL=config.js.map
