@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 exports.authenticate = function(req, res) {
     var username = req.body.username;
     var password = req.body.password
-    console.log(req.body);
+
     User.findOne({username: username}, function (err, user) {
         if(err) throw err;
         if(!user) {
@@ -18,14 +18,16 @@ exports.authenticate = function(req, res) {
             var token = jwt.sign(user, config.secretKey, {
                 expiresIn : 60*24*7 //in minutes, 1 week
             });
-            console.log(token);
             res.json({
                 success: true,
                 token: 'Bearer ' + token,
                 user: {
-                    id: user._id,
+                    _id: user._id,
                     name: user.name,
-                    username: user.username
+                    username: user.username,
+                    apiKey: user.apiKey,
+                    appId: user.appId,
+                    templateId: user.templateId
                 }
             })
         } else {
@@ -45,6 +47,24 @@ exports.getUserbyId = function (id, callback) {
     User.findById(id, callback)
 };
 
-exports.dashboard = function (req, res) {
-    res.send('da dang nhap');
+exports.updateProfile = function (req, res) {
+    User.findOneAndUpdate({username: req.body.username },req.body, {new:true},function (err, user) {
+        if(err) {
+
+            return res.json({success: false, msg: 'An error has occurred!'});
+        } else {
+            console.log(user);
+            res.json({
+                success: true,
+                user: {
+                    _id: user._id,
+                    name: user.name,
+                    username: user.username,
+                    apiKey: user.apiKey,
+                    appId: user.appId,
+                    templateId: user.templateId
+                }
+            })
+        }
+    })
 };

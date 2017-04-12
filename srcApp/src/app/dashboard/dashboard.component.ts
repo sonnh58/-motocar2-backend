@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-dashboard',
@@ -61,7 +62,8 @@ export class DashboardComponent implements OnInit {
     }
   };
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,
+              private flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
     this.source = new LocalDataSource();
@@ -77,13 +79,22 @@ export class DashboardComponent implements OnInit {
 
   onSaveConfirm(event) {
     if (window.confirm('Are you sure you want to push notification to user?')) {
-      this.authService.pushNotification(event.newData['_id']).subscribe(data => {
-        console.log(data);
-        this.authService.getData().subscribe(data => {
-          this.source.load(data);
-          this.source.setPaging(0,20, true);
+      this.authService.pushNotification(event.newData['_id'])
+        .subscribe(data => {
+          this.flashMessagesService.show('Notification has been delivered!', {
+            cssClass: 'alert-success',
+            timeout: 3000
+          });
+          this.authService.getData().subscribe(data => {
+            this.source.load(data);
+            this.source.setPaging(0, 20, true);
+          })
+        }, error => {
+          this.flashMessagesService.show("An error has occurred!", {
+            cssClass: 'alert-danger',
+            timeout: 5000
+          })
         });
-      });
 
       event.confirm.resolve();
     } else {

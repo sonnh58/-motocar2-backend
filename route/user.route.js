@@ -5,4 +5,5 @@ var user = require('../controller/user.controller'),
     passport = require('passport');
 module.exports = function(app){
     app.route('/api/users/auth').post(user.authenticate);
+    app.post('/api/users/updateProfile',passport.authenticate('jwt', { session: false }), user.updateProfile);
 };

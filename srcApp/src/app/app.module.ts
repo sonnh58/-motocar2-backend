@@ -14,11 +14,13 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
-  { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  { path: '',   redirectTo: '/dashboard', pathMatch: 'full' },
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

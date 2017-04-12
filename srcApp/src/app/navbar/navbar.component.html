@@ -7,22 +7,26 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand">Motocars2 Noti Manager</a>
+      <a class="navbar-brand" href="javascript:void(null)">Motocars2 Noti Manager</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
         <li *ngIf="authService.loggedIn()" routerLink="/dashboard" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:true}">
-          <a>Dashboard</a>
+          <a href="javascript:void(null)">Dashboard</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">
+          <a href="javascript:void(null)">Profile</a>
+        </li>
         <li *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:true}">
-          <a>Login</a>
+          <a href="javascript:void(null)">Login</a>
         </li>
         <li *ngIf="authService.loggedIn()">
-          <a (click)="onLogoutClick()">Logout</a>
+          <a (click)="onLogoutClick()" href="javascript:void(null)">Logout</a>
         </li>
       </ul>
     </div><!--/.nav-collapse -->

@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="well bs-component">
+      <form (submit)="onUpdateSubmit()" class="form-horizontal">
+        <fieldset>
+          <legend>USER INFORMATION</legend>
+          <div class="form-group">
+            <label for="username" class="col-lg-3 control-label">Username</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="username" name="username" [ngModel]="user.username" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-lg-3 control-label">Name</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apiKey" class="col-lg-3 control-label">OneSignal REST API Key</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="apiKey" name="apiKey" [(ngModel)]="user.apiKey" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="appId" class="col-lg-3 control-label">OneSignal App ID</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="appId" name="appId" [(ngModel)]="user.appId" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="templateId" class="col-lg-3 control-label">OneSignal Template ID</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" id="templateId" name="templateId" [(ngModel)]="user.templateId" required>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-success pull-right" value="Update">
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
