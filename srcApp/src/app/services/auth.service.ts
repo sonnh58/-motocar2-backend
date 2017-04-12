@@ -64,7 +64,7 @@ export class AuthService{
     this.getProfile();
 
     header.append('Content-Type','application/json');
-    header.append('Authorization', this.user.apiKey);
+    header.append('Authorization', 'Basic ' + this.user.apiKey);
 
     let message = {
       app_id: this.user.appId,

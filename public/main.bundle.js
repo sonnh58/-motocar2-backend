@@ -725,7 +725,7 @@ var AuthService = (function () {
         var header = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         this.getProfile();
         header.append('Content-Type', 'application/json');
-        header.append('Authorization', this.user.apiKey);
+        header.append('Authorization', 'Basic ' + this.user.apiKey);
         var message = {
             app_id: this.user.appId,
             template_id: this.user.templateId,
