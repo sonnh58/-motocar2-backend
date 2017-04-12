@@ -159,7 +159,7 @@ var Config = (function () {
     return Config;
 }());
 
-Config.apiUrl = "/api"; // http://localhost:8000/api/ or /api
+Config.apiUrl = "api/"; // http://localhost:8000/api/ or api/
 //# sourceMappingURL=config.js.map
 
 /***/ }),
