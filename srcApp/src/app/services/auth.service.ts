@@ -59,6 +59,15 @@ export class AuthService{
       .map(res => res.json());
   }
 
+  updateData(id){
+    let header = new Headers();
+    this.loadToken();
+    header.append('Content-Type','application/json');
+    header.append('Authorization', this.authToken);
+    return this.http.post(Config.apiUrl+'updateOneCar',{_id:id},{headers: header})
+      .map(res => res.json());
+  }
+
   pushNotification(id){
     let header = new Headers();
     this.getProfile();

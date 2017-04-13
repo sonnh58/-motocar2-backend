@@ -256,18 +256,35 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.onSaveConfirm = function (event) {
         var _this = this;
         if (window.confirm('Are you sure you want to push notification to user?')) {
-            this.authService.pushNotification(event.newData['_id'])
+            var _id_1 = event.newData['_id'];
+            this.authService.pushNotification(_id_1)
                 .subscribe(function (data) {
-                _this.flashMessagesService.show('Notification has been delivered!', {
-                    cssClass: 'alert-success',
-                    timeout: 3000
-                });
-                _this.authService.getData().subscribe(function (data) {
-                    _this.source.load(data);
-                    _this.source.setPaging(0, 20, true);
+                _this.authService.updateData(_id_1)
+                    .subscribe(function (data) {
+                    if (data.success) {
+                        _this.flashMessagesService.show('Notification has been delivered!', {
+                            cssClass: 'alert-success',
+                            timeout: 3000
+                        });
+                        _this.authService.getData().subscribe(function (data) {
+                            _this.source.load(data);
+                            _this.source.setPaging(0, 20, true);
+                        });
+                    }
+                    else {
+                        _this.flashMessagesService.show("Failed to update Db!", {
+                            cssClass: 'alert-danger',
+                            timeout: 5000
+                        });
+                    }
+                }, function (error) {
+                    _this.flashMessagesService.show("An error has occurred! (db)!", {
+                        cssClass: 'alert-danger',
+                        timeout: 5000
+                    });
                 });
             }, function (error) {
-                _this.flashMessagesService.show("An error has occurred!", {
+                _this.flashMessagesService.show("An error has occurred! (oneSignal", {
                     cssClass: 'alert-danger',
                     timeout: 5000
                 });
@@ -719,6 +736,14 @@ var AuthService = (function () {
         header.append('Content-Type', 'application/json');
         header.append('Authorization', this.authToken);
         return this.http.post(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* Config */].apiUrl + 'getCars', {}, { headers: header })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.updateData = function (id) {
+        var header = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', this.authToken);
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* Config */].apiUrl + 'updateOneCar', { _id: id }, { headers: header })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.pushNotification = function (id) {

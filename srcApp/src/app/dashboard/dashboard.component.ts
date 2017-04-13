@@ -79,18 +79,34 @@ export class DashboardComponent implements OnInit {
 
   onSaveConfirm(event) {
     if (window.confirm('Are you sure you want to push notification to user?')) {
-      this.authService.pushNotification(event.newData['_id'])
+      let _id =  event.newData['_id'];
+      this.authService.pushNotification(_id)
         .subscribe(data => {
-          this.flashMessagesService.show('Notification has been delivered!', {
-            cssClass: 'alert-success',
-            timeout: 3000
-          });
-          this.authService.getData().subscribe(data => {
-            this.source.load(data);
-            this.source.setPaging(0, 20, true);
-          })
+          this.authService.updateData(_id)
+            .subscribe(data => {
+              if (data.success) {
+                this.flashMessagesService.show('Notification has been delivered!', {
+                  cssClass: 'alert-success',
+                  timeout: 3000
+                });
+                this.authService.getData().subscribe(data => {
+                  this.source.load(data);
+                  this.source.setPaging(0, 20, true);
+                })
+              } else {
+                this.flashMessagesService.show("Failed to update Db!", {
+                  cssClass: 'alert-danger',
+                  timeout: 5000
+                })
+              }
+            }, error => {
+              this.flashMessagesService.show("An error has occurred! (db)!", {
+                cssClass: 'alert-danger',
+                timeout: 5000
+              })
+            })
         }, error => {
-          this.flashMessagesService.show("An error has occurred!", {
+          this.flashMessagesService.show("An error has occurred! (oneSignal", {
             cssClass: 'alert-danger',
             timeout: 5000
           })

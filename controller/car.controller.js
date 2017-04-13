@@ -5,13 +5,29 @@ var mongoose = require('mongoose'),
     request = require('request-promise');
 
 exports.findOneCar = function (req, res) {
-    Car.findById(req.params.id, function(err, docs) {
+    var _id = req.body._id;
+    Car.findById(_id, function(err, docs) {
         if (err) {
             res.json(err);
         } else {
             res.json(docs);
         }
     });
+};
+
+exports.updatedAfterNotified = function (req, res) {
+    var _id = req.body._id;
+    Car.findByIdAndUpdate(_id, {notified: 'Sent'}, function(err, docs) {
+        if (err) {
+            res.json({
+                success: false
+            })
+        } else {
+            res.json({
+                success: true
+            })
+        }
+    })
 };
 
 exports.getData = function (req, res) {
