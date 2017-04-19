@@ -11,66 +11,122 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class DashboardComponent implements OnInit {
 
   source: LocalDataSource;
-  settings = {
-    columns: {
-      username: {
-        title: 'Username',
-        filter: false,
-        editable: false
-      },
-      record_id: {
-        title: 'Record ID',
-        filter: false,
-        editable: false
-      },
-      title: {
-        title: 'Title',
-        filter: false,
-        editable: false
-      },
-      make: {
-        title: 'Brand',
-        filter: false,
-        editable: false
-      },
-      year: {
-        title: 'Year',
-        filter: false,
-        editable: false
-      },
-      url: {
-        title: 'Url',
-        filter: false,
-        editable: false
-      },
-      notified: {
-        title: 'Push Notification',
-        editable: false
-      }
-    },
-    actions: {
-      add : false,
-      delete: false,
-      position: 'right'
-    },
-    attr:{
-      id: '_id'
-    },
-    edit: {
-      editButtonContent: 'PUSH',
-      saveButtonContent: 'CONFIRM',
-      confirmSave: true,
-    },
-    paper: {
-      display: true,
-      perPage: 20
-    }
-  };
+  settings: any;
 
   constructor(private authService:AuthService,
               private flashMessagesService: FlashMessagesService) { }
 
   ngOnInit() {
+    if(this.authService.isAdmin()){
+      this.settings = {
+        columns: {
+          username: {
+            title: 'Username',
+            filter: false,
+            editable: false
+          },
+          record_id: {
+            title: 'Record ID',
+            filter: false,
+            editable: false
+          },
+          title: {
+            title: 'Title',
+            filter: false,
+            editable: false
+          },
+          make: {
+            title: 'Brand',
+            filter: false,
+            editable: false
+          },
+          year: {
+            title: 'Year',
+            filter: false,
+            editable: false
+          },
+          url: {
+            title: 'Url',
+            filter: false,
+            editable: false
+          },
+          notified: {
+            title: 'Push Notification',
+            editable: false
+          }
+        },
+        actions: {
+          position: 'right',
+          add: false,
+          edit: false
+        },
+        attr:{
+          id: '_id'
+        },
+        paper: {
+          display: true,
+          perPage: 20
+        }
+      };
+    } else {
+      this.settings = {
+        columns: {
+          username: {
+            title: 'Username',
+            filter: false,
+            editable: false
+          },
+          record_id: {
+            title: 'Record ID',
+            filter: false,
+            editable: false
+          },
+          title: {
+            title: 'Title',
+            filter: false,
+            editable: false
+          },
+          make: {
+            title: 'Brand',
+            filter: false,
+            editable: false
+          },
+          year: {
+            title: 'Year',
+            filter: false,
+            editable: false
+          },
+          url: {
+            title: 'Url',
+            filter: false,
+            editable: false
+          },
+          notified: {
+            title: 'Push Notification',
+            editable: false
+          }
+        },
+        actions: {
+          add : false,
+          edit:false,
+          delete: false,
+          position: 'right'
+        },
+        attr:{
+          id: '_id'
+        },
+        edit: {
+          editButtonContent: 'PUSH',
+          saveButtonContent: 'CONFIRM',
+          confirmSave: true,
+        },
+        paper: {
+          display: true,
+          perPage: 20
+        }
+      };
+    }
+
     this.source = new LocalDataSource();
     this.authService.getData().subscribe(data => {
         this.source.load(data);

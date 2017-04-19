@@ -217,64 +217,119 @@ var DashboardComponent = (function () {
     function DashboardComponent(authService, flashMessagesService) {
         this.authService = authService;
         this.flashMessagesService = flashMessagesService;
-        this.settings = {
-            columns: {
-                username: {
-                    title: 'Username',
-                    filter: false,
-                    editable: false
-                },
-                record_id: {
-                    title: 'Record ID',
-                    filter: false,
-                    editable: false
-                },
-                title: {
-                    title: 'Title',
-                    filter: false,
-                    editable: false
-                },
-                make: {
-                    title: 'Brand',
-                    filter: false,
-                    editable: false
-                },
-                year: {
-                    title: 'Year',
-                    filter: false,
-                    editable: false
-                },
-                url: {
-                    title: 'Url',
-                    filter: false,
-                    editable: false
-                },
-                notified: {
-                    title: 'Push Notification',
-                    editable: false
-                }
-            },
-            actions: {
-                add: false,
-                delete: false,
-                position: 'right'
-            },
-            attr: {
-                id: '_id'
-            },
-            edit: {
-                editButtonContent: 'PUSH',
-                saveButtonContent: 'CONFIRM',
-                confirmSave: true,
-            },
-            paper: {
-                display: true,
-                perPage: 20
-            }
-        };
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (this.authService.isAdmin()) {
+            this.settings = {
+                columns: {
+                    username: {
+                        title: 'Username',
+                        filter: false,
+                        editable: false
+                    },
+                    record_id: {
+                        title: 'Record ID',
+                        filter: false,
+                        editable: false
+                    },
+                    title: {
+                        title: 'Title',
+                        filter: false,
+                        editable: false
+                    },
+                    make: {
+                        title: 'Brand',
+                        filter: false,
+                        editable: false
+                    },
+                    year: {
+                        title: 'Year',
+                        filter: false,
+                        editable: false
+                    },
+                    url: {
+                        title: 'Url',
+                        filter: false,
+                        editable: false
+                    },
+                    notified: {
+                        title: 'Push Notification',
+                        editable: false
+                    }
+                },
+                actions: {
+                    position: 'right',
+                    add: false,
+                    edit: false
+                },
+                attr: {
+                    id: '_id'
+                },
+                paper: {
+                    display: true,
+                    perPage: 20
+                }
+            };
+        }
+        else {
+            this.settings = {
+                columns: {
+                    username: {
+                        title: 'Username',
+                        filter: false,
+                        editable: false
+                    },
+                    record_id: {
+                        title: 'Record ID',
+                        filter: false,
+                        editable: false
+                    },
+                    title: {
+                        title: 'Title',
+                        filter: false,
+                        editable: false
+                    },
+                    make: {
+                        title: 'Brand',
+                        filter: false,
+                        editable: false
+                    },
+                    year: {
+                        title: 'Year',
+                        filter: false,
+                        editable: false
+                    },
+                    url: {
+                        title: 'Url',
+                        filter: false,
+                        editable: false
+                    },
+                    notified: {
+                        title: 'Push Notification',
+                        editable: false
+                    }
+                },
+                actions: {
+                    add: false,
+                    edit: false,
+                    delete: false,
+                    position: 'right'
+                },
+                attr: {
+                    id: '_id'
+                },
+                edit: {
+                    editButtonContent: 'PUSH',
+                    saveButtonContent: 'CONFIRM',
+                    confirmSave: true,
+                },
+                paper: {
+                    display: true,
+                    perPage: 20
+                }
+            };
+        }
         this.source = new __WEBPACK_IMPORTED_MODULE_2_ng2_smart_table__["b" /* LocalDataSource */]();
         this.authService.getData().subscribe(function (data) {
             _this.source.load(data);
@@ -1322,7 +1377,7 @@ module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <flash
 /***/ 255:
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<button class=\"btn btn-success pull-right\" (click)=\"refresh()\" style=\"margin-bottom:16px\">Refresh</button>\n\n<ng2-smart-table [settings]=\"settings\" [source]=\"source\"\n                 (editConfirm)=\"onSaveConfirm($event)\"\n></ng2-smart-table>\n"
+module.exports = "\n\n<button class=\"btn btn-success pull-right\" (click)=\"refresh()\" style=\"margin-bottom:16px\">Refresh</button>\n\n<ng2-smart-table [settings]=\"settings\" [source]=\"source\"\n></ng2-smart-table>\n"
 
 /***/ }),
 
