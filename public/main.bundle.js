@@ -284,6 +284,36 @@ var DashboardComponent = (function () {
             return false;
         });
     };
+    DashboardComponent.prototype.refresh = function () {
+        var _this = this;
+        this.authService.requestCars()
+            .subscribe(function (data) {
+            if (data.success) {
+                _this.flashMessagesService.show("Refreshing.....!", {
+                    cssClass: 'alert-success',
+                    timeout: 5000
+                });
+                _this.authService.getData().subscribe(function (data) {
+                    _this.source.load(data);
+                    _this.source.setPaging(0, 20, true);
+                }, function (err) {
+                    console.log(err);
+                    return false;
+                });
+            }
+            else {
+                _this.flashMessagesService.show("Failed to get data!", {
+                    cssClass: 'alert-danger',
+                    timeout: 5000
+                });
+            }
+        }, function (error) {
+            _this.flashMessagesService.show(error.msg, {
+                cssClass: 'alert-danger',
+                timeout: 5000
+            });
+        });
+    };
     DashboardComponent.prototype.onSaveConfirm = function (event) {
         var _this = this;
         if (window.confirm('Are you sure you want to push notification to user?')) {
@@ -1292,7 +1322,7 @@ module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <flash
 /***/ 255:
 /***/ (function(module, exports) {
 
-module.exports = "<ng2-smart-table [settings]=\"settings\" [source]=\"source\"\n                 (editConfirm)=\"onSaveConfirm($event)\"\n></ng2-smart-table>\n"
+module.exports = "\n\n<button class=\"btn btn-success pull-right\" (click)=\"refresh()\" style=\"margin-bottom:16px\">Refresh</button>\n\n<ng2-smart-table [settings]=\"settings\" [source]=\"source\"\n                 (editConfirm)=\"onSaveConfirm($event)\"\n></ng2-smart-table>\n"
 
 /***/ }),
 
@@ -1562,6 +1592,14 @@ var AuthService = (function () {
         header.append('Content-Type', 'application/json');
         header.append('Authorization', this.authToken);
         return this.http.post(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* Config */].apiUrl + 'getCars', {}, { headers: header })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.requestCars = function () {
+        var header = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        header.append('Content-Type', 'application/json');
+        header.append('Authorization', this.authToken);
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* Config */].apiUrl + 'requestCars', {}, { headers: header })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.updateData = function (id) {
