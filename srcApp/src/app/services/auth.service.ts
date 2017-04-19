@@ -18,6 +18,13 @@ export class AuthService{
       .map(res => res.json());
   }
 
+  registerUser(user){
+    let header = new Headers();
+    header.append('Content-Type','application/json');
+    return this.http.post(Config.apiUrl+'users/register', user, {headers: header})
+      .map(res => res.json());
+  }
+
   storeUserData(token, user){
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -50,6 +57,24 @@ export class AuthService{
       .map(res => res.json());
   }
 
+  getUsers(){
+    let header = new Headers();
+    this.loadToken();
+    header.append('Content-Type','application/json');
+    header.append('Authorization', this.authToken);
+    return this.http.post(Config.apiUrl+'users/getUsers',{},{headers: header})
+      .map(res => res.json());
+  }
+
+  deleteUser(id){
+    let header = new Headers();
+    this.loadToken();
+    header.append('Content-Type','application/json');
+    header.append('Authorization', this.authToken);
+    return this.http.post(Config.apiUrl+'users/deleteUser',{_id:id},{headers: header})
+      .map(res => res.json());
+  }
+
   getData(){
     let header = new Headers();
     this.loadToken();
@@ -65,6 +90,32 @@ export class AuthService{
     header.append('Content-Type','application/json');
     header.append('Authorization', this.authToken);
     return this.http.post(Config.apiUrl+'updateOneCar',{_id:id},{headers: header})
+      .map(res => res.json());
+  }
+
+  getDevices(){
+    this.getProfile();
+
+    let header = new Headers();
+    this.loadToken();
+
+    header.append('Content-Type','application/json');
+    header.append('Authorization', 'Basic ' + this.user.apiKey);
+
+    return this.http.get('https://onesignal.com/api/v1/players?app_id='+ this.user.appId, {headers: header})
+      .map(res => res.json());
+  }
+
+  getNotifications(){
+    this.getProfile();
+
+    let header = new Headers();
+    this.loadToken();
+
+    header.append('Content-Type','application/json');
+    header.append('Authorization', 'Basic ' + this.user.apiKey);
+
+    return this.http.get('https://onesignal.com/api/v1/notifications?app_id='+ this.user.appId, {headers: header})
       .map(res => res.json());
   }
 
@@ -89,6 +140,10 @@ export class AuthService{
 
   loggedIn(){
     return tokenNotExpired();
+  }
+
+  isAdmin(){
+    return this.getProfile().isAdmin;
   }
 
   logout(){

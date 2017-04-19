@@ -16,14 +16,36 @@
           <a href="javascript:void(null)">Dashboard</a>
         </li>
       </ul>
+      <ul class="nav navbar-nav navbar-left">
+        <li *ngIf="authService.loggedIn()" routerLink="/devices" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">
+          <a href="javascript:void(null)">Devices</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-left">
+        <li *ngIf="authService.loggedIn()" routerLink="/notifications" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">
+          <a href="javascript:void(null)">Notifications</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-left">
+        <li *ngIf="authService.loggedIn() && authService.isAdmin()" routerLink="/users" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">
+          <a href="javascript:void(null)">Users</a>
+        </li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:true}">
-          <a href="javascript:void(null)">Profile</a>
+          <a href="javascript:void(null)">Welcome, {{authService.getProfile().username}}</a>
         </li>
         <li *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact:true}">
           <a href="javascript:void(null)">Login</a>
+        </li>
+        <li *ngIf="!authService.loggedIn()" routerLink="/register" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}">
+          <a href="javascript:void(null)">Register</a>
         </li>
         <li *ngIf="authService.loggedIn()">
           <a (click)="onLogoutClick()" href="javascript:void(null)">Logout</a>

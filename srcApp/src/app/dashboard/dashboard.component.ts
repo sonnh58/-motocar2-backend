@@ -13,6 +13,11 @@ export class DashboardComponent implements OnInit {
   source: LocalDataSource;
   settings = {
     columns: {
+      username: {
+        title: 'Username',
+        filter: false,
+        editable: false
+      },
       record_id: {
         title: 'Record ID',
         filter: false,
@@ -106,7 +111,7 @@ export class DashboardComponent implements OnInit {
               })
             })
         }, error => {
-          this.flashMessagesService.show("An error has occurred! (oneSignal", {
+          this.flashMessagesService.show("An error has occurred! Please check API Key, App ID, Template ID.", {
             cssClass: 'alert-danger',
             timeout: 5000
           })

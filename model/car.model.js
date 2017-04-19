@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 
 var CarSchema = new Schema({
     record_id: String,
+    username: String,
     title : String,
     url: String,
     year: String,
@@ -36,6 +37,6 @@ var CarSchema = new Schema({
     image_url: String,
     Images: Schema.Types.Mixed,
     notified: { type: String, default: 'Pending' }
-}, { collection: 'cars' });
+},{timestamps: true}, { collection: 'cars' });
 
 module.exports = mongoose.model('Car', CarSchema);

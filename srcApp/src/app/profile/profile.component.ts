@@ -25,13 +25,16 @@ export class ProfileComponent implements OnInit {
     let user = {
       username: this.user['username'],
       name: this.user['name'],
-      apiKey: this.user['apiKey']
-
+      apiKey: this.user['apiKey'],
+      appId: this.user['appId'],
+      templateId: this.user['templateId'],
+      sourceData : this.user['sourceData']
     };
+
     this.authService.updateProfile(user).subscribe(data => {
       if(data.success){
+        this.authService.storeProfileData(data.user);
         this.getProfile();
-        this.user = this.authService.getProfile();
         this.flashMessagesService.show('Your information has been updated!', {
           cssClass: 'alert-success',
           timeout:3000});
@@ -40,7 +43,6 @@ export class ProfileComponent implements OnInit {
           cssClass: 'alert-danger',
           timeout:5000});
       }
-
     })
   }
 

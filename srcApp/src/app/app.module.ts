@@ -12,15 +12,26 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { ValidateService } from './services/validate.service';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
+import { UserComponent } from './user/user.component';
+import { CustomRenderPasswordComponent, CustomRenderDateComponent, CustomRenderObjectComponent } from './pipes/custom-render.component';
+import { DevicesComponent } from './devices/devices.component';
+import { NotificationsComponent } from './notifications/notifications.component'
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/dashboard', pathMatch: 'full' },
   {path:'login', component: LoginComponent},
+  {path:'register', component: RegisterComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]}
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGuard]},
+  {path:'devices', component: DevicesComponent, canActivate: [AuthGuard] },
+  {path:'notifications', component: NotificationsComponent, canActivate: [AuthGuard] },
+  {path:'users', component: UserComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({
@@ -29,7 +40,14 @@ const appRoutes: Routes = [
     NavbarComponent,
     LoginComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    RegisterComponent,
+    UserComponent,
+    CustomRenderPasswordComponent,
+    CustomRenderDateComponent,
+    CustomRenderObjectComponent,
+    DevicesComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +57,9 @@ const appRoutes: Routes = [
     FlashMessagesModule,
     Ng2SmartTableModule
   ],
+  entryComponents: [CustomRenderPasswordComponent, CustomRenderDateComponent, CustomRenderObjectComponent],
   providers: [
-    AuthService, AuthGuard
+    AuthService, AuthGuard, AdminGuard, ValidateService
   ],
   bootstrap: [AppComponent]
 })
