@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
               return false;
             })
         } else {
-          this.flashMessagesService.show("Failed to get data!", {
+          this.flashMessagesService.show(data.msg, {
             cssClass: 'alert-danger',
             timeout: 5000
           })

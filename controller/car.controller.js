@@ -99,7 +99,8 @@ exports.requestCars = function (req, res) {
             });
     } else {
         res.json({
-            success: false
+            success: false,
+            msg: "Please check connection to data source !"
         })
     }
 };

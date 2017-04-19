@@ -302,7 +302,7 @@ var DashboardComponent = (function () {
                 });
             }
             else {
-                _this.flashMessagesService.show("Failed to get data!", {
+                _this.flashMessagesService.show(data.msg, {
                     cssClass: 'alert-danger',
                     timeout: 5000
                 });
