@@ -87,7 +87,7 @@ export class DashboardComponent implements OnInit {
       .subscribe(
         data=>{
         if(data.success) {
-          this.flashMessagesService.show("Refreshing.....!", {
+          this.flashMessagesService.show("Getting data.....!", {
             cssClass: 'alert-success',
             timeout: 5000
           })

@@ -289,7 +289,7 @@ var DashboardComponent = (function () {
         this.authService.requestCars()
             .subscribe(function (data) {
             if (data.success) {
-                _this.flashMessagesService.show("Refreshing.....!", {
+                _this.flashMessagesService.show("Getting data.....!", {
                     cssClass: 'alert-success',
                     timeout: 5000
                 });
