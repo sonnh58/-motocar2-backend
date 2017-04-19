@@ -447,7 +447,7 @@ var DevicesComponent = (function () {
         }, function (err) {
             _this.flashMessagesService.show("Please check your OneSignal App ID and API Key", {
                 cssClass: 'alert-danger',
-                timeout: 20000
+                timeout: 5000
             });
             return false;
         });
@@ -774,7 +774,7 @@ var NotificationsComponent = (function () {
         }, function (err) {
             _this.flashMessagesService.show("Please check your OneSignal App ID and API Key", {
                 cssClass: 'alert-danger',
-                timeout: 20000
+                timeout: 5000
             });
             return false;
         });
