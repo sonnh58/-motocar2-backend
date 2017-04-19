@@ -84,6 +84,15 @@ export class AuthService{
       .map(res => res.json());
   }
 
+  requestCars(){
+    let header = new Headers();
+    this.loadToken();
+    header.append('Content-Type','application/json');
+    header.append('Authorization', this.authToken);
+    return this.http.post(Config.apiUrl+'requestCars',{},{headers: header})
+      .map(res => res.json());
+  }
+
   updateData(id){
     let header = new Headers();
     this.loadToken();

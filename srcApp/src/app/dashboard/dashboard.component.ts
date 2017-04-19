@@ -82,6 +82,37 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  refresh() {
+    this.authService.requestCars()
+      .subscribe(
+        data=>{
+        if(data.success) {
+          this.flashMessagesService.show("Refreshing.....!", {
+            cssClass: 'alert-success',
+            timeout: 5000
+          })
+          this.authService.getData().subscribe(data => {
+              this.source.load(data);
+              this.source.setPaging(0,20, true);
+            },
+            err => {
+              console.log(err);
+              return false;
+            })
+        } else {
+          this.flashMessagesService.show("Failed to get data!", {
+            cssClass: 'alert-danger',
+            timeout: 5000
+          })
+        }
+      },error=>{
+          this.flashMessagesService.show(error.msg, {
+            cssClass: 'alert-danger',
+            timeout: 5000
+          })
+      })
+  }
+
   onSaveConfirm(event) {
     if (window.confirm('Are you sure you want to push notification to user?')) {
       let _id =  event.newData['_id'];

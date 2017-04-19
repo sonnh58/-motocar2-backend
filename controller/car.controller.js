@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     config = require('../config/config'),
     path = require('path'),
+    parseString = require('xml2js').parseString,
     Car = mongoose.model('Car'),
     request = require('request-promise');
 
@@ -46,18 +47,20 @@ exports.getCars = function (req, res) {
 
 };
 
-request.requestCars = function () {
+exports.requestCars = function (req, res) {
     var sourceData = req.user.sourceData;
+    var username = req.user.username;
+    console.log(sourceData)
     if (sourceData != "") {
-        request(value.sourceData)
+        request(sourceData)
             .then(function(response){
                 var xml = response.replace('<?xml version="1.0" encoding="utf-8"?>', "");
                 parseString(xml, {explicitArray: false}, function (err, result) {
                     if (result['listings'].listing) {
                         var data = result['listings'].listing;
                         data.forEach(function(item) {
-                            item.username = value.username;
-                            car.update({record_id : item.record_id}, item, {upsert:true, setDefaultsOnInsert:true}, function(err, doc) {
+                            item.username = username;
+                            Car.update({record_id : item.record_id, username: username }, item, {upsert:true, setDefaultsOnInsert:true}, function(err, doc) {
                                 //     if (err) {
                                 //         //console.log(err);
                                 //     } else {
@@ -81,7 +84,6 @@ request.requestCars = function () {
                             });
                         })
                     }
-
                     res.json({
                         success: true
                     })
@@ -89,6 +91,7 @@ request.requestCars = function () {
             })
             .catch(function (err) {
                 // API call failed...
+                console.log(err)
                 res.json({
                     success: false,
                     msg: "Please check connection to data source !"
