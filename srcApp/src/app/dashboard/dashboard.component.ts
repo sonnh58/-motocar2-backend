@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
         },
         actions: {
           add : false,
-          edit:false,
+          edit: true,
           delete: false,
           position: 'right'
         },

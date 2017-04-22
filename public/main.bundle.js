@@ -312,7 +312,7 @@ var DashboardComponent = (function () {
                 },
                 actions: {
                     add: false,
-                    edit: false,
+                    edit: true,
                     delete: false,
                     position: 'right'
                 },
