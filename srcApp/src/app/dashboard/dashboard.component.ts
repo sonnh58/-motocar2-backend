@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { PromptComponent } from './prompt.component';
+import { DialogService } from "ng2-bootstrap-modal";
+import { ValidateService } from '../services/validate.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +17,9 @@ export class DashboardComponent implements OnInit {
   settings: any;
 
   constructor(private authService:AuthService,
-              private flashMessagesService: FlashMessagesService) { }
+              private flashMessagesService: FlashMessagesService,
+              private validateService: ValidateService,
+              private dialogService:DialogService) { }
 
   ngOnInit() {
     if(this.authService.isAdmin()){
@@ -208,6 +213,33 @@ export class DashboardComponent implements OnInit {
     } else {
       event.confirm.reject();
     }
+  }
+
+  showPrompt() {
+    this.dialogService.addDialog(PromptComponent)
+      .subscribe((result)=>{
+
+        //required fields
+        if(!this.validateService.validateMessage(result)) {
+          this.flashMessagesService.show('Please fill in all fields',{cssClass: 'alert-danger', timeout: 3000});
+          console.log(this.validateService.validateMessage(result));
+          return false;
+        }
+
+        //We get dialog result
+        this.authService.createNotification(result)
+          .subscribe(data=>{
+            this.flashMessagesService.show('Notification has been delivered to '+data.recipients+' user(s)!', {
+              cssClass: 'alert-success',
+              timeout: 5000
+            });
+        }, error => {
+            this.flashMessagesService.show("An error has occurred! Please check API Key, App ID", {
+              cssClass: 'alert-danger',
+              timeout: 3000
+            })
+          })
+      });
   }
 
 }

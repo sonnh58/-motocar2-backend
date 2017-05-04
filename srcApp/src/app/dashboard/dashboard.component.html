@@ -1,6 +1,8 @@
 
-
-<button class="btn btn-success pull-right" (click)="refresh()" style="margin-bottom:16px">Refresh</button>
+<div class="pull-right">
+  <button class="btn btn-success" (click)="showPrompt()" style="margin:0 16px 16px 0">Create Notification</button>
+  <button class="btn btn-success" (click)="refresh()" style="margin-bottom:16px">Refresh</button>
+</div>
 
 <ng2-smart-table [settings]="settings" [source]="source"
 ></ng2-smart-table>

@@ -147,6 +147,24 @@ export class AuthService{
       .map(res => res.json());
   }
 
+  createNotification(value){
+    let header = new Headers();
+    this.getProfile();
+
+    header.append('Content-Type','application/json');
+    header.append('Authorization', 'Basic ' + this.user.apiKey);
+
+    let message = {
+      app_id: this.user.appId,
+      included_segments: ["All"],
+      headings: {"en" : value.title},
+      contents: {"en" : value.message}
+    };
+
+    return this.http.post('https://onesignal.com/api/v1/notifications',message,{headers: header})
+      .map(res => res.json());
+  }
+
   loggedIn(){
     return tokenNotExpired();
   }

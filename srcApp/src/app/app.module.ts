@@ -23,6 +23,9 @@ import { CustomRenderPasswordComponent, CustomRenderDateComponent, CustomRenderO
 import { DevicesComponent } from './devices/devices.component';
 import { NotificationsComponent } from './notifications/notifications.component'
 
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { PromptComponent } from './dashboard/prompt.component';
+
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/dashboard', pathMatch: 'full' },
   {path:'login', component: LoginComponent},
@@ -47,6 +50,7 @@ const appRoutes: Routes = [
     CustomRenderDateComponent,
     CustomRenderObjectComponent,
     DevicesComponent,
+    PromptComponent,
     NotificationsComponent
   ],
   imports: [
@@ -55,9 +59,10 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    BootstrapModalModule
   ],
-  entryComponents: [CustomRenderPasswordComponent, CustomRenderDateComponent, CustomRenderObjectComponent],
+  entryComponents: [CustomRenderPasswordComponent, CustomRenderDateComponent, CustomRenderObjectComponent, PromptComponent],
   providers: [
     AuthService, AuthGuard, AdminGuard, ValidateService
   ],
