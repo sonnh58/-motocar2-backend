@@ -1,5 +1,6 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
+var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
@@ -26,5 +27,11 @@ exports.config = {
   },
   onPrepare() {
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+
+    jasmine.getEnv().addReporter(
+      new Jasmine2HtmlReporter({
+        savePath: 'target/screenshots'
+      })
+    );
   }
 };

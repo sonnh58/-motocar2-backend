@@ -1,4 +1,5 @@
 import { SrcAppPage } from './app.po';
+import { browser, element, by } from 'protractor';
 
 describe('src-app App', () => {
   let page: SrcAppPage;
@@ -7,8 +8,10 @@ describe('src-app App', () => {
     page = new SrcAppPage();
   });
 
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
+  // it('should display message saying app works', () => {
+  //   page.navigateTo();
+  //   //expect(page.getParagraphText()).toEqual('app works!');
+  //   browser.findElement(by.name('username')).sendKeys('admin');
+  //   browser.findElement(by.name('password')).sendKeys('password');
+  // });
 });

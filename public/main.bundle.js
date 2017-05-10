@@ -427,7 +427,7 @@ var Config = (function () {
     return Config;
 }());
 
-Config.apiUrl = "api/"; // http://localhost:8000/api/ or api/
+Config.apiUrl = "http://localhost:8000/api/"; // http://localhost:8000/api/ or api/
 //# sourceMappingURL=config.js.map
 
 /***/ }),
@@ -1653,7 +1653,7 @@ module.exports = "<app-navbar></app-navbar>\n<div class=\"container\">\n  <flash
 /***/ 314:
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"pull-right\">\n  <button class=\"btn btn-success\" (click)=\"showPrompt()\" style=\"margin:0 16px 16px 0\">Create Notification</button>\n  <button class=\"btn btn-success\" (click)=\"refresh()\" style=\"margin-bottom:16px\">Refresh</button>\n</div>\n\n<ng2-smart-table [settings]=\"settings\" [source]=\"source\"\n></ng2-smart-table>\n"
+module.exports = "\n<div class=\"pull-right\">\n  <button class=\"btn btn-success\" (click)=\"showPrompt()\" style=\"margin:0 16px 16px 0\">Create Notification</button>\n  <button class=\"btn btn-success\" (click)=\"refresh()\" style=\"margin-bottom:16px\">Refresh</button>\n</div>\n\n<ng2-smart-table [settings]=\"settings\" [source]=\"source\" (editConfirm)=\"onSaveConfirm($event)\"\n></ng2-smart-table>\n"
 
 /***/ }),
 
@@ -1667,7 +1667,7 @@ module.exports = "<h2 class=\"page-header\" *ngIf=\"count\">Số thiết bị đ
 /***/ 316:
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" name=\"username\"\n           class=\"form-control\" [(ngModel)]=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" name=\"password\"\n           class=\"form-control\" [(ngModel)]=\"password\">\n  </div>\n  <div>\n    <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n    <input type=\"button\" class=\"btn btn-primary\" routerLink=\"/register\" value=\"Register\">\n  </div>\n\n</form>\n"
+module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" name=\"username\"\n           class=\"form-control\" [(ngModel)]=\"username\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" name=\"password\"\n           class=\"form-control\" [(ngModel)]=\"password\">\n  </div>\n  <div>\n    <input type=\"submit\" class=\"btn btn-primary\" id=\"login\" value=\"Login\">\n    <input type=\"button\" class=\"btn btn-primary\" routerLink=\"/register\" value=\"Register\">\n  </div>\n\n</form>\n"
 
 /***/ }),
 
